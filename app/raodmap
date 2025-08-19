@@ -1,0 +1,27 @@
+### ⏱️ Time Estimate
+
+**Phase 1 – Base Setup (Scaffold + NavDrawer)** → 1 day
+**Phase 2 – Task List Screen (Cards, CheckBox, Chips, PullToRefresh)** → 2–3 days
+**Phase 3 – Add/Edit Task Screen (FAB, TextFields, Save logic)** → 2–3 days
+**Phase 4 – Menus & Dialogs (3-dot menu, delete confirmation)** → 1–2 days
+**Phase 5 – UI Enhancements (BottomSheet + ProgressIndicator)** → 1–2 days
+**Phase 6 – Notes Screen (mini version)** → 2 days
+
+---
+
+### 🔥 Total = \~9–13 days
+
+* If you **just want it working** (MVP style) → \~1 week
+* If you want it **clean + polished + well-structured** → \~2 weeks
+* If you also add **extra features** (animations, persistence with Room/Datastore, theming, etc.) → 3+ weeks
+
+---
+
+👉 Since you already plan **1 module per day**, you can actually match this with your course:
+
+* Build app features alongside the new module you’re learning.
+* By the time you hit **end of course**, you’ll also have a **real project portfolio piece** ready.
+
+---
+
+Do you want me to also include **where persistence (saving tasks/notes) with Room/Datastore** would fit into this plan, or do you prefer to just keep it **UI-only** for now? (i liked this approache

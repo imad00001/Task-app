@@ -1,0 +1,13 @@
+-Dont harcode
+
+-You’re adding to the list inside @Composable:
+
+ tasks.add(Task(1, "Task 1", "Description for Task 1", false))
+
+ This runs every recomposition (whenever the UI updates).
+
+ So each recomposition → adds Task 1 again → duplicates, and potential crashes.
+
+ ⚡ Rule of Compose: Never modify state directly inside a composable body unless wrapped in a side-effect (LaunchedEffect, remember, etc.).
+
+-
