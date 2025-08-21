@@ -1,0 +1,7 @@
+That Kotlin code block, a `Column` with a `weight` modifier, means the following:
+
+- **`Column`**: It's a composable layout that arranges its children vertically. In this case, it stacks the `Text` for the task title and the `Text` for the description on top of each other.
+
+- **`Modifier.weight(1f)`**: This is the key part. It tells the `Column` to **take up all the available remaining horizontal space** inside its parent `Row`. The `1f` is a "weight" value; if there were other `weight` modifiers in the same `Row`, the space would be distributed proportionally. Since it's the only item with a weight, it gets to occupy the entire space left by the `Checkbox`.
+
+Essentially, this code ensures the title and description texts fill the space to the left of the checkbox, pushing the checkbox to the far right.

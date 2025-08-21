@@ -1,6 +1,8 @@
 package com.example.taskapp.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -28,6 +30,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -36,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.taskapp.phase2.TaskList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,6 +50,7 @@ fun TaskAppDrawer() {
         initialValue = DrawerValue.Closed//?
     )
 
+    var showDialog by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope() //?
     var presses by remember { mutableIntStateOf(0) }
 
@@ -143,33 +148,30 @@ fun TaskAppDrawer() {
                 }
             },
             floatingActionButton = {
-                FloatingActionButton(onClick = { presses++ }) {
-                    Icon(Icons.Default.Add, contentDescription = "Add Task", tint = Color.Black)
+                FloatingActionButton(onClick = {showDialog = true}) {
+                    if(showDialog){
+
+                    }
+                      Icon(
+                          imageVector = Icons.Default.Add,
+                            contentDescription = "Add Task",
+                            tint = Color.Black
+                      )
                 }
             }
-        ) { innerpading ->
+        ) { innerpadding ->
             Column(
-                modifier = Modifier
-                    .padding(innerpading)
-                    .padding(16.dp)
-            ) {
-                Text("Welcome to the Task App!")
-                Text("This is a simple app to manage your tasks.")
-                Text("You can add, edit, and delete tasks.")
-                Text("Use the drawer to navigate through the app.")
-                Text(
-                    "You have pressed the button $presses times",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(20.dp),
-                    textAlign = TextAlign.Center,
-                )
+                modifier = Modifier.padding(innerpadding),
+
+                ) {
+                TaskList()
+            }
             }
 
 
         }
     }
-}
+
 
 @Preview(showBackground = true)
 @Composable

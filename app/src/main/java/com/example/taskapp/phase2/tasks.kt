@@ -1,16 +1,23 @@
 package com.example.taskapp.phase2
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,27 +33,56 @@ data class Task(
 
 @Composable
 fun TaskList(){
-    val tasks = remember{mutableStateListOf(
+    val taskList = remember{mutableStateListOf(
         Task(1, "Task 1", "Description for Task 1", false),
-        Task(2, "Task 2", "Description for Task 2", true),
-        Task(3, "Task 3", "Description for Task 3", false)
+        Task(2, "Task 2", "Description for Task 2", false),
+        Task(3, "Task 3", "Description for Task 3", false),
+        Task(4, "Task 4", "Description for Task 4", false),
+        Task(5, "Task 5", "Description for Task 5", false),
+        Task(6, "Task 6", "Description for Task 6", false),
     )}
 //    tasks.add(Task(1, "Task 1", "Description for Task 1", false))
      LazyColumn (
-         modifier = Modifier.fillMaxWidth().background(Color.LightGray),
+         modifier = Modifier.fillMaxWidth(),
 
 
      ){
-         items(tasks){ tasks->
+         items(taskList){ task->
              ElevatedCard(
-                 modifier = Modifier.fillMaxWidth().padding(8.dp),\
+                 modifier = Modifier.fillMaxWidth().padding(8.dp),
+                 elevation = CardDefaults.cardElevation(4.dp)
+             ) {
+                 Column (modifier = Modifier.padding(10.dp)){
 
-             ) { }
-             Text(text = tasks.title)
-             Text(text = tasks.description)
+                 Row(
+                     modifier = Modifier.fillMaxWidth(),
+                     horizontalArrangement = Arrangement.End,
+                     verticalAlignment = Alignment.CenterVertically
+                 ) {
+                     Column (modifier = Modifier.weight(1f),
+                         verticalArrangement = Arrangement.SpaceBetween,
+                         horizontalAlignment = Alignment.Start) {
+                         Text(text = task.title)
+                         Text(text = task.description)
+                     }
+
+
+                     Checkbox(
+                         checked = task.isCompleted,
+                         onCheckedChange = { isChecked ->
+                             val index = taskList.indexOf(task)
+                             if(index != -1){
+                                 taskList[index] = taskList[index].copy(isCompleted = isChecked)
+                             }
+                         }
+                     )
+                     }
+                 }
+             }
          }
-     }
-}
+     } // lazy
+                 }
+
 
 @Preview(showBackground = true)
 @Composable

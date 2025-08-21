@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.taskapp.phase2.TaskList
 
 //(In this we get topbar ,bottom bar and drawer in scaffold)
 
@@ -72,13 +73,9 @@ fun TaskAppScafold(){
             innerpadding ->
         Column(
             modifier = Modifier.padding(innerpadding),
-            verticalArrangement = Arrangement.Center
+
         ) {
-            Text (
-                "You have pressed the button $presses times",
-                modifier = Modifier.fillMaxWidth().padding(20.dp),
-                textAlign = TextAlign.Center,
-            )
+            TaskList()
         }
     }
 }

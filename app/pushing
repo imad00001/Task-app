@@ -1,0 +1,17 @@
+✅ Steps to push correctly
+
+Stage your changes
+
+git add .
+
+
+(or select files in Android Studio → right click → Git → Add)
+
+Commit your changes
+
+git commit -m "Your commit message"
+
+
+Push to GitHub
+
+git push
