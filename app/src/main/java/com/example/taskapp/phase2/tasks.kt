@@ -32,25 +32,28 @@ data class Task(
 )
 
 @Composable
-fun TaskList(){
-    val taskList = remember{mutableStateListOf(
-        Task(1, "Task 1", "Description for Task 1", false),
-        Task(2, "Task 2", "Description for Task 2", false),
-        Task(3, "Task 3", "Description for Task 3", false),
-        Task(4, "Task 4", "Description for Task 4", false),
-        Task(5, "Task 5", "Description for Task 5", false),
-        Task(6, "Task 6", "Description for Task 6", false),
-    )}
-//    tasks.add(Task(1, "Task 1", "Description for Task 1", false))
+fun TaskList(taskList: List<Task>, onTaskCheckedChange: (Task, Boolean) -> Unit){
+//    val taskList = remember{mutableStateListOf(
+//        Task(1, "Task 1", "Description for Task 1", false),
+//        Task(2, "Task 2", "Description for Task 2", false),
+//        Task(3, "Task 3", "Description for Task 3", false),
+//        Task(4, "Task 4", "Description for Task 4", false),
+//        Task(5, "Task 5", "Description for Task 5", false),
+//        Task(6, "Task 6", "Description for Task 6", false),
+//    )}
+////    tasks.add(Task(1, "Task 1", "Description for Task 1", false))
      LazyColumn (
          modifier = Modifier.fillMaxWidth(),
 
 
      ){
-         items(taskList){ task->
+         items(taskList, key = {it.id}){ task->
              ElevatedCard(
                  modifier = Modifier.fillMaxWidth().padding(8.dp),
-                 elevation = CardDefaults.cardElevation(4.dp)
+                 elevation = CardDefaults.cardElevation(4.dp),
+                 colors = CardDefaults.elevatedCardColors(
+                     containerColor = if (task.isCompleted) Color.DarkGray else Color.Unspecified
+                 )
              ) {
                  Column (modifier = Modifier.padding(10.dp)){
 
@@ -70,24 +73,25 @@ fun TaskList(){
                      Checkbox(
                          checked = task.isCompleted,
                          onCheckedChange = { isChecked ->
-                             val index = taskList.indexOf(task)
-                             if(index != -1){
-                                 taskList[index] = taskList[index].copy(isCompleted = isChecked)
-                             }
-                         }
+                               onTaskCheckedChange(task,isChecked)
+                             },
+//                                 colors = androidx.compose.material3.CheckboxDefaults.colors(
+//                                 checkedColor = if (task.isCompleted) Color.Green else Color.Gray
+//                                 )
                      )
+                         }
                      }
                  }
              }
          }
      } // lazy
-                 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun TaskListPreview() {
 
-    TaskList()
-
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TaskListPreview() {
+//
+//    TaskList()
+//
+//}

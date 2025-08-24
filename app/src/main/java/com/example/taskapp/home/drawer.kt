@@ -1,6 +1,6 @@
 package com.example.taskapp.home
 
-import FloatingAB
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.taskapp.phase2.Task
 import com.example.taskapp.phase2.TaskList
 import kotlinx.coroutines.launch
 
@@ -52,12 +53,16 @@ fun TaskAppDrawer(
 
 ) {
 
-    var drawerState = rememberDrawerState(
+    val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed//?
     )
-
+    // list of tasks
+    var tasklist by remember { mutableStateOf(listOf<Task>()) }
+    // dialog state
     var showDialog by remember { mutableStateOf(false) }
+
     val scope = rememberCoroutineScope() //?
+    //input fields
     var presses by remember { mutableIntStateOf(0) }
     var taskTitle by remember { mutableStateOf("") }
     var taskDescription by remember { mutableStateOf("") }
@@ -156,16 +161,74 @@ fun TaskAppDrawer(
                 }
             },
             floatingActionButton = {
-                FloatingAB()
-            }
+                FloatingActionButton(onClick = {showDialog = true}) {
+                    Icon(Icons.Default.Add, contentDescription = "Add Task")
+                }
+                }
         ) { innerpadding ->
             Column(
                 modifier = Modifier.padding(innerpadding),
 
                 ) {
-                TaskList()
+                TaskList(
+                    taskList = tasklist,
+                    onTaskCheckedChange = { updatedTask, isChecked ->
+                        // Update your list here
+                        tasklist = tasklist.map {
+                            if (it.id == updatedTask.id) it.copy(isCompleted = isChecked) else it
+                        }
+                    }
+                )
             }
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDialog = false },
+                    title = { Text("Add Task") },
+                    text = {
+                        Column {
+                            OutlinedTextField(
+                                value = taskTitle,
+                                onValueChange = { taskTitle = it },
+                                label = { Text("Title") },
+                                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+                            )
+                            OutlinedTextField(
+                                value = taskDescription,
+                                onValueChange = { taskDescription = it },
+                                label = { Text("Description") },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                if (taskTitle.isNotBlank()) {
+                                    val newTask = Task(
+                                        id = tasklist.size + 1,
+                                        title = taskTitle,
+                                        description = taskDescription,
+                                        isCompleted = false
+                                    )
+                                    tasklist = tasklist + newTask
+                                    taskTitle = ""
+                                    taskDescription = ""
+                                    showDialog = false
+                                }
+                            }
+                        ) {
+                            Text("Add")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showDialog = false }) {
+                            Text("Cancel")
+                        }
+                    }
+                )
             }
+
+                    }
 
 
         }
