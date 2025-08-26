@@ -14,8 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.taskapp.home.About
 import com.example.taskapp.home.TaskAppDrawer
-import com.example.taskapp.pages.About
+//import com.example.taskapp.pages.About
 import com.example.taskapp.pages.CompletedTasks
 import com.example.taskapp.pages.DailyGoals
 import com.example.taskapp.pages.Streak
@@ -41,9 +42,9 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.Drawer.route){
                         TaskAppDrawer(navController = navController)
                     }
-                    composable(Screen.DailyGoals.route){
-                        DailyGoals()
-                    }
+//                    composable(Screen.DailyGoals.route){
+//                        DailyGoals(nav)
+//                    }
                     composable(Screen.CompletedTasks.route){
                         CompletedTasks()
                     }
@@ -51,7 +52,7 @@ class MainActivity : ComponentActivity() {
                         Streak()
                     }
                     composable(Screen.About.route){
-                        About()
+                        About(navController = navController)
                     }
                 }
                 }

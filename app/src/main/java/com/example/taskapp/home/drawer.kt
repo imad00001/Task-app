@@ -94,7 +94,7 @@ fun TaskAppDrawer(
                     selected = false,
                     onClick = {
                         scope.launch { drawerState.close() } // close drawer
-                        navController.navigate(Screen.DailyGoals.route)
+                        navController.navigate(Screen.Drawer.route)
                     }
                 )
                 HorizontalDivider()
