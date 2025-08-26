@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -75,6 +76,7 @@ fun TaskList(taskList: List<Task>, onTaskCheckedChange: (Task, Boolean) -> Unit)
                          onCheckedChange = { isChecked ->
                                onTaskCheckedChange(task,isChecked)
                              },
+
 //                                 colors = androidx.compose.material3.CheckboxDefaults.colors(
 //                                 checkedColor = if (task.isCompleted) Color.Green else Color.Gray
 //                                 )
