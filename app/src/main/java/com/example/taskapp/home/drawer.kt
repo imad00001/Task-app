@@ -43,14 +43,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.taskapp.pages.DailyGoals
 import com.example.taskapp.phase2.Task
 import com.example.taskapp.phase2.TaskList
+import com.example.taskapp.phase3.Screen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskAppDrawer(
-
+    navController: NavController
 ) {
 
     val drawerState = rememberDrawerState(
@@ -89,7 +92,10 @@ fun TaskAppDrawer(
                         Text("Daily goals")
                     },
                     selected = false,
-                    onClick = {}
+                    onClick = {
+                        scope.launch { drawerState.close() } // close drawer
+                        navController.navigate(Screen.DailyGoals.route)
+                    }
                 )
                 HorizontalDivider()
                 NavigationDrawerItem(
@@ -97,23 +103,32 @@ fun TaskAppDrawer(
                         Text("Completed tasks")
                     },
                     selected = false,
-                    onClick = {}
+                    onClick = {
+                        scope.launch { drawerState.close() } // close drawer
+                        navController.navigate(Screen.CompletedTasks.route)
+                    }
                 )
                 HorizontalDivider()
                 NavigationDrawerItem(
                     label = {
-                        Text("Calendar")
+                        Text("Streak")
                     },
                     selected = false,
-                    onClick = {}
+                    onClick = {
+                        scope.launch { drawerState.close() } // close drawer
+                        navController.navigate(Screen.Streak.route)
+                    }
                 )
                 HorizontalDivider()
                 NavigationDrawerItem(
                     label = {
-                        Text("Settings")
+                        Text("About")
                     },
                     selected = false,
-                    onClick = {}
+                    onClick = {
+                        scope.launch { drawerState.close() } // close drawer
+                        navController.navigate(Screen.About.route)
+                    }
                 )
             }
         },
@@ -235,8 +250,8 @@ fun TaskAppDrawer(
     }
 
 
-@Preview(showBackground = true)
-@Composable
-fun TaskAppDrawerPreview() {
-    TaskAppDrawer()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TaskAppDrawerPreview() {
+//    TaskAppDrawer()
+//}
